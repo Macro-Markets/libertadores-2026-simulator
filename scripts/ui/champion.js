@@ -1,5 +1,5 @@
 import { roundLabel } from "../data/bracket-template.js";
-import { teamFlagUrl, teamLabel } from "../data/teams.js";
+import { teamImageAttrs, teamLabel } from "../data/teams.js";
 import { escapeHtml } from "../utils/dom.js";
 import { t } from "../i18n/index.js";
 
@@ -32,7 +32,7 @@ export function renderChampionSection(container, snapshot) {
       <div>
         <p class="kicker">${t("champion.kicker")}</p>
         <h2 id="championTitle">
-          <img class="flag-lg" style="display:inline-block;vertical-align:-4px;margin-right:8px" src="${teamFlagUrl(champion)}" alt="">
+          <img class="flag-lg" style="display:inline-block;vertical-align:-4px;margin-right:8px" ${teamImageAttrs(champion)} alt="">
           <span class="text-grad">${escapeHtml(teamLabel(champion))}</span>
         </h2>
       </div>
@@ -63,12 +63,12 @@ function buildPathRows(derived) {
           <span class="label">${escapeHtml(roundLabel(round))}</span>
           <div class="team-cell" style="display:flex;align-items:center;gap:8px;justify-content:space-between">
             <span style="display:flex;align-items:center;gap:6px">
-              <img class="flag-lg" src="${teamFlagUrl(champion)}" alt="">
+              <img class="flag-lg" ${teamImageAttrs(champion)} alt="">
               <strong>${escapeHtml(teamLabel(champion))}</strong>
             </span>
             <span class="mono"><strong>${escapeHtml(championGoals || "0")}</strong> × ${escapeHtml(opponentGoals || "0")}</span>
             <span style="display:flex;align-items:center;gap:6px">
-              <img class="flag-lg" src="${teamFlagUrl(opponent)}" alt="">
+              <img class="flag-lg" ${teamImageAttrs(opponent)} alt="">
               <span>${escapeHtml(teamLabel(opponent))}</span>
             </span>
           </div>

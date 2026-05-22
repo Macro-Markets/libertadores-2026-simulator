@@ -1,5 +1,5 @@
 import { GROUP_KEYS, GROUPS } from "../data/groups.js";
-import { teamFlagUrl, teamLabel } from "../data/teams.js";
+import { teamImageAttrs, teamLabel } from "../data/teams.js";
 import { escapeHtml } from "../utils/dom.js";
 import { t } from "../i18n/index.js";
 
@@ -34,7 +34,7 @@ function renderSeedsCard(derived) {
       <div class="seed-row">
         <span class="kicker">${t("groups.groupN", { g: group })}</span>
         <div class="team-cell">
-          <img class="flag-lg" src="${teamFlagUrl(first)}" alt="" loading="lazy">
+          <img class="flag-lg" ${teamImageAttrs(first)} alt="" loading="lazy">
           <span class="team-name">${escapeHtml(teamLabel(first))}</span>
         </div>
         <span class="small">${escapeHtml(t("qualifiers.seeds.second", { team: teamLabel(second) }))}</span>

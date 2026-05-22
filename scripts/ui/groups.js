@@ -1,6 +1,6 @@
 import { GROUPS, GROUP_KEYS } from "../data/groups.js";
 import { getMatchId } from "../data/fixtures.js";
-import { teamFlagUrl, teamLabel } from "../data/teams.js";
+import { teamImageAttrs, teamLabel } from "../data/teams.js";
 import { escapeHtml } from "../utils/dom.js";
 import { t, formatDate, venueLabel } from "../i18n/index.js";
 
@@ -124,7 +124,7 @@ function renderMatchCard(match, scores, showGroupPill = false) {
       </div>
       <div class="match-row">
         <label class="team-inline" data-team-row="home">
-          <img class="flag-lg" src="${teamFlagUrl(match.homeKey)}" alt="" loading="lazy">
+          <img class="flag-lg" ${teamImageAttrs(match.homeKey)} alt="" loading="lazy">
           <span class="radio-wrap">
             <input type="radio" name="winner-${id}" data-pick="group" data-match="${id}" data-side="home" ${homeWins ? "checked" : ""} aria-label="${escapeHtml(t("groups.pickWinner", { team: homeLabel }))}">
             <span class="radio-dot" aria-hidden="true"></span>
@@ -150,7 +150,7 @@ function renderMatchCard(match, scores, showGroupPill = false) {
             <input type="radio" name="winner-${id}" data-pick="group" data-match="${id}" data-side="away" ${awayWins ? "checked" : ""} aria-label="${escapeHtml(t("groups.pickWinner", { team: awayLabel }))}">
             <span class="radio-dot" aria-hidden="true"></span>
           </span>
-          <img class="flag-lg" src="${teamFlagUrl(match.awayKey)}" alt="" loading="lazy">
+          <img class="flag-lg" ${teamImageAttrs(match.awayKey)} alt="" loading="lazy">
         </label>
       </div>
     </article>
@@ -181,7 +181,7 @@ function renderTable(rows, changedTeams) {
           <div class="${classes}" role="row">
             <div role="cell"><span class="rank-dot">${index + 1}</span></div>
             <div class="team-cell" role="cell">
-              <img class="flag-lg" src="${teamFlagUrl(row.team)}" alt="" loading="lazy">
+              <img class="flag-lg" ${teamImageAttrs(row.team)} alt="" loading="lazy">
               <span class="team-name">${escapeHtml(teamLabel(row.team))}</span>
             </div>
             <div class="mono" role="cell"><strong>${row.pts}</strong></div>

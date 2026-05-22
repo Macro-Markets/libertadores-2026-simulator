@@ -1,5 +1,5 @@
 import { ROUND_ORDER, roundLabel } from "../data/bracket-template.js";
-import { teamFlagUrl, teamLabel } from "../data/teams.js";
+import { teamImageAttrs, teamLabel } from "../data/teams.js";
 import { escapeHtml } from "../utils/dom.js";
 import { t } from "../i18n/index.js";
 import { drawConnectors, observeResize } from "./bracket-connectors.js";
@@ -146,7 +146,7 @@ function renderCompactRow(match, side) {
 
   return `
     <label class="${classes}" for="score-${id}">
-      <img class="flag-compact" src="${teamFlagUrl(team)}" alt="" loading="lazy">
+      <img class="flag-compact" ${teamImageAttrs(team)} alt="" loading="lazy">
       <span class="name-compact">${escapeHtml(label)}</span>
       <span class="radio-wrap">
         <input type="radio" name="winner-${escapeHtml(match.id)}" data-pick="knockout" data-match="${escapeHtml(match.id)}" data-side="${side}" ${isWinner ? "checked" : ""} ${isTbd ? "disabled" : ""} aria-label="${escapeHtml(t("bracket.pickWinner", { team: label }))}">
@@ -222,7 +222,7 @@ function renderMobileRow(match, side) {
 
   return `
     <label class="${classes}" for="${id}">
-      <img class="flag-lg" src="${teamFlagUrl(team)}" alt="" loading="lazy">
+      <img class="flag-lg" ${teamImageAttrs(team)} alt="" loading="lazy">
       <span class="name-compact">${escapeHtml(label)}</span>
       <span class="radio-wrap">
         <input type="radio" name="winner-m-${escapeHtml(match.id)}" data-pick="knockout" data-match="${escapeHtml(match.id)}" data-side="${side}" ${isWinner ? "checked" : ""} ${isTbd ? "disabled" : ""} aria-label="${escapeHtml(t("bracket.pickWinner", { team: label }))}">

@@ -1,4 +1,4 @@
-import { teamLabel, teamFlagCode, teamFlagUrl } from "../data/teams.js";
+import { teamCountryFlagUrl, teamFlagUrl, teamLabel } from "../data/teams.js";
 import { roundLabel } from "../data/bracket-template.js";
 import { buildShareUrl } from "../state/serialize.js";
 import { announce, escapeHtml } from "../utils/dom.js";
@@ -59,18 +59,16 @@ async function drawShareImage(snapshot) {
     ctx.fillStyle = text;
     ctx.fillText(teamLabel(champion), 80, 232);
 
-    const code = teamFlagCode(champion);
-    if (code) {
-      try {
-        const img = await loadImage(`https://flagcdn.com/w160/${code}.png`);
-        if (img) {
-          const flagW = 120;
-          const flagH = 90;
-          const flagY = 236;
-          const nameWidth = ctx.measureText(teamLabel(champion)).width;
-          ctx.drawImage(img, 80 + nameWidth + 30, flagY, flagW, flagH);
-        }
-      } catch { /* ignore */ }
+    try {
+      const img = await loadTeamImage(champion);
+      if (img) {
+        const flagW = 90;
+        const flagH = 90;
+        const flagY = 236;
+        const nameWidth = ctx.measureText(teamLabel(champion)).width;
+        ctx.drawImage(img, 80 + nameWidth + 30, flagY, flagW, flagH);
+      }
+    } catch { /* ignore */ }
     }
 
     await drawMiniBracket(ctx, snapshot, {
@@ -118,9 +116,7 @@ async function drawMiniBracket(ctx, snapshot, box) {
   });
 
   await Promise.all([...teams].map(async team => {
-    const code = teamFlagCode(team);
-    if (!code) return;
-    const img = await loadImage(`https://flagcdn.com/w40/${code}.png`);
+    const img = await loadTeamImage(team);
     if (img) flagCache[team] = img;
   }));
 
@@ -151,6 +147,11 @@ async function drawMiniBracket(ctx, snapshot, box) {
       ctx.stroke();
     });
   });
+}
+
+async function loadTeamImage(team) {
+  if (!team || team === "TBD") return null;
+  return await loadImage(teamFlagUrl(team)) || await loadImage(teamCountryFlagUrl(team));
 }
 
 function drawMiniRow(ctx, match, side, x, y, w, box, flagCache) {

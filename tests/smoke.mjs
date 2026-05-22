@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 
 import { GROUPS, GROUP_KEYS } from "../scripts/data/groups.js";
+import { TEAM_LOGO_URLS, teamFlagUrl } from "../scripts/data/teams.js";
 import { loadFixtures, getMatchId } from "../scripts/data/fixtures.js";
 import { computeAllGroupTables } from "../scripts/engine/standings.js";
 import { buildSeeds } from "../scripts/engine/qualifiers.js";
@@ -11,6 +12,9 @@ const fixtures = await loadFixtures();
 assert.equal(GROUP_KEYS.length, 8, "Libertadores should have 8 groups");
 assert.equal(Object.values(GROUPS).flat().length, 32, "Libertadores should have 32 clubs");
 assert.equal(fixtures.length, 96, "Group stage should have 96 matches");
+assert.ok(Object.keys(TEAM_LOGO_URLS).length >= 20, "Most clubs should have Wikimedia badge URLs");
+assert.ok(teamFlagUrl("Flamengo").includes("wikimedia.org"), "Mapped clubs should use Wikimedia badges");
+assert.ok(teamFlagUrl("Cusco").includes("flagcdn.com"), "Unmapped clubs should fall back to country flags");
 
 for (const group of GROUP_KEYS) {
   const groupFixtures = fixtures.filter(match => match.group === group);

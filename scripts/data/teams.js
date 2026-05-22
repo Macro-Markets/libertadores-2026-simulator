@@ -35,6 +35,30 @@ export const TEAM_FLAG_CODES = {
   "Universidad Central": "ve"
 };
 
+export const TEAM_LOGO_URLS = {
+  Flamengo: "https://upload.wikimedia.org/wikipedia/commons/9/96/Clube_de_Regatas_do_Flamengo_logo.svg",
+  Estudiantes: "https://commons.wikimedia.org/wiki/Special:FilePath/Estudiantes%20de%20la%20Plata%20crest%20%282025%29.svg",
+  "Independiente Medellin": "https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Deportivo%20Independiente%20Medell%C3%ADn.svg",
+  Nacional: "https://commons.wikimedia.org/wiki/Special:FilePath/Club%20Nacional%20de%20Football.png",
+  Universitario: "https://commons.wikimedia.org/wiki/Special:FilePath/Logo%20oficial%20de%20Universitario.png",
+  Fluminense: "https://upload.wikimedia.org/wikipedia/commons/1/12/Fluminense_Football_Club.svg",
+  Bolivar: "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20bolivar.png",
+  "Independiente Rivadavia": "https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Independiente%20Rivadavia.svg",
+  "Boca Juniors": "https://commons.wikimedia.org/wiki/Special:FilePath/Boca%20Juniors%20logo18.svg",
+  Cruzeiro: "https://upload.wikimedia.org/wikipedia/commons/9/90/Cruzeiro_Esporte_Clube_%28logo%29.svg",
+  "Universidad Catolica": "https://commons.wikimedia.org/wiki/Special:FilePath/Escudo-universidad-catolica-chile.png",
+  Corinthians: "https://upload.wikimedia.org/wikipedia/commons/d/dd/Corinthians_Paulista_1914-16.png",
+  "Santa Fe": "https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20de%20Independiente%20Santa%20Fe.svg",
+  Palmeiras: "https://upload.wikimedia.org/wikipedia/commons/1/13/SE_Palmeiras.svg",
+  "Cerro Porteno": "https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Cerro%20Porte%C3%B1o.svg",
+  Junior: "https://commons.wikimedia.org/wiki/Special:FilePath/Junior%20Barranquilla%20logo.svg",
+  Lanus: "https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Lan%C3%BAs.png",
+  Mirassol: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mirassol_Futebol_Clube_logo.svg",
+  "Independiente del Valle": "https://commons.wikimedia.org/wiki/Special:FilePath/Escudoindependientedelvalle2023.png",
+  "Rosario Central": "https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Atl%C3%A9tico%20Rosario%20Central.svg",
+  Libertad: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Libertad-logo.png"
+};
+
 export const TEAM_LABELS_BY_LANG = {
   pt: {
     Flamengo: "Flamengo",
@@ -153,6 +177,16 @@ export function teamFlagCode(key) {
 }
 
 export function teamFlagUrl(key) {
+  if (key && TEAM_LOGO_URLS[key]) return TEAM_LOGO_URLS[key];
+  return teamCountryFlagUrl(key);
+}
+
+export function teamCountryFlagUrl(key) {
   const code = teamFlagCode(key);
   return code ? `https://flagcdn.com/${code}.svg` : "assets/flag-fallback.svg";
+}
+
+export function teamImageAttrs(key) {
+  const fallback = teamCountryFlagUrl(key);
+  return `src="${teamFlagUrl(key)}" onerror="this.onerror=null;this.src='${fallback}'"`;
 }

@@ -194,8 +194,8 @@
   grid-template-columns: minmax(0, 1fr) 18px auto;
 }
 .team-inline .flag-lg {
-  width: 24px;
-  height: 18px;
+  width: 26px;
+  height: 26px;
 }
 .team-inline .team-name {
   white-space: nowrap;
@@ -218,9 +218,9 @@
 }
 
 .flag-lg {
-  width: 24px;
-  height: 18px;
-  object-fit: cover;
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
   border-radius: 3px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: var(--accent);
@@ -482,9 +482,9 @@
   position: relative;
 }
 .team-row-compact .flag-compact {
-  width: 18px;
-  height: 13px;
-  object-fit: cover;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
   border-radius: 2px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: var(--accent);
@@ -642,8 +642,8 @@
     font-size: 0.95rem;
   }
   .bracket-mobile-row .flag-lg {
-    width: 24px;
-    height: 18px;
+    width: 26px;
+    height: 26px;
   }
 }
 
