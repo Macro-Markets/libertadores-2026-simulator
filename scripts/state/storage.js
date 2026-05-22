@@ -1,6 +1,6 @@
-const STATE_KEY = "wc26-state";
-const THEME_KEY = "wc26-theme";
-const TOUR_KEY = "wc26-tour";
+const STATE_KEY = "libertadores26-state";
+const THEME_KEY = "libertadores26-theme";
+const TOUR_KEY = "libertadores26-tour";
 
 export function savePersistedState(payload) {
   try {

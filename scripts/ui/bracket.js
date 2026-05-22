@@ -5,7 +5,6 @@ import { t } from "../i18n/index.js";
 import { drawConnectors, observeResize } from "./bracket-connectors.js";
 
 const ROUND_COL_CLASS = {
-  R32: "r32",
   R16: "r16",
   QF: "qf",
   SF: "sf",
@@ -76,8 +75,7 @@ function renderDesktop(derived) {
   };
 
   const leftCols = [
-    buildCol("R32", "L", matches.R32.filter(m => m.side === "L").map(m => m.id)),
-    buildCol("R16", "L", [1, 2, 3, 4].map(i => `R16-${i}`)),
+    buildCol("R16", "L", matches.R16.filter(m => m.side === "L").map(m => m.id)),
     buildCol("QF", "L", ["QF-1", "QF-2"]),
     buildCol("SF", "L", ["SF-1"])
   ].join("");
@@ -94,8 +92,7 @@ function renderDesktop(derived) {
   const rightCols = [
     buildCol("SF", "R", ["SF-2"]),
     buildCol("QF", "R", ["QF-3", "QF-4"]),
-    buildCol("R16", "R", [5, 6, 7, 8].map(i => `R16-${i}`)),
-    buildCol("R32", "R", matches.R32.filter(m => m.side === "R").map(m => m.id))
+    buildCol("R16", "R", matches.R16.filter(m => m.side === "R").map(m => m.id))
   ].join("");
 
   return `${leftCols}${finalCol}${rightCols}`;

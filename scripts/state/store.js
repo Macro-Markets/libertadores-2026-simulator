@@ -1,8 +1,8 @@
 import { GROUP_KEYS } from "../data/groups.js";
 import { getMatchId } from "../data/fixtures.js";
-import { R32_TEMPLATE, ROUND_ORDER } from "../data/bracket-template.js";
+import { R16_TEMPLATE, ROUND_ORDER } from "../data/bracket-template.js";
 import { computeAllGroupTables, isReady } from "../engine/standings.js";
-import { buildSeeds, addThirdSeeds, rankThirds, pickBestThirds, resolveThirdAssignments } from "../engine/qualifiers.js";
+import { buildSeeds } from "../engine/qualifiers.js";
 import { buildKnockoutMatches, championPath, getChampion, countMatches, countDecided } from "../engine/bracket-engine.js";
 import { deserialize, pushUrlPayload, readUrlPayload } from "./serialize.js";
 import {
@@ -17,7 +17,7 @@ function defaultState() {
     activeGroup: "A",
     activeRound: "R1",
     groupView: "group",
-    knockoutPhase: "R32",
+    knockoutPhase: "R16",
     theme: "dark",
     onboardingDone: false
   };
@@ -35,8 +35,7 @@ function initialTheme() {
 function ensureKnockoutRecords(knockoutState) {
   const seeded = { ...knockoutState };
   const roundIds = [
-    ...R32_TEMPLATE.map(t => t.id),
-    ...[1, 2, 3, 4, 5, 6, 7, 8].map(i => `R16-${i}`),
+    ...R16_TEMPLATE.map(t => t.id),
     ...[1, 2, 3, 4].map(i => `QF-${i}`),
     ...[1, 2].map(i => `SF-${i}`),
     "F-1"
@@ -68,7 +67,7 @@ const LEGACY_ROUND_MAP = {
 
 function normalizeRoundKey(value) {
   if (value in LEGACY_ROUND_MAP) return LEGACY_ROUND_MAP[value];
-  if (["R1", "R2", "R3"].includes(value)) return value;
+  if (["R1", "R2", "R3", "R4", "R5", "R6"].includes(value)) return value;
   return "R1";
 }
 
@@ -79,7 +78,7 @@ function sanitizeScoreValue(value) {
   return String(Math.max(0, Math.floor(n)));
 }
 
-export function createStore({ fixtures, thirdMap }) {
+export function createStore({ fixtures }) {
   const listeners = new Set();
   let state = defaultState();
   state.theme = initialTheme();
@@ -114,10 +113,10 @@ export function createStore({ fixtures, thirdMap }) {
   function compute() {
     const groupTables = computeAllGroupTables(fixtures, state.scores);
     const seeds = buildSeeds(groupTables);
-    const rankedThirds = rankThirds(groupTables);
-    const bestThirds = pickBestThirds(rankedThirds, 8);
-    addThirdSeeds(seeds, bestThirds);
-    const { key: qualifiedGroupsKey, assignments: thirdAssignments } = resolveThirdAssignments(bestThirds, thirdMap);
+    const rankedThirds = [];
+    const bestThirds = [];
+    const qualifiedGroupsKey = "";
+    const thirdAssignments = {};
     const matches = buildKnockoutMatches(seeds, thirdAssignments, state.knockoutMatches);
     const champion = getChampion(matches);
     const path = championPath(matches);

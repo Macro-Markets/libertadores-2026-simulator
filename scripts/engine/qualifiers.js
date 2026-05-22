@@ -11,9 +11,6 @@ export function buildSeeds(groupTables) {
 }
 
 export function addThirdSeeds(seeds, bestThirds) {
-  bestThirds.forEach(row => {
-    seeds[`3${row.group}`] = row.team;
-  });
   return seeds;
 }
 
@@ -29,7 +26,7 @@ export function rankThirds(groupTables) {
 }
 
 export function pickBestThirds(rankedThirds, count = 8) {
-  return rankedThirds.slice(0, count);
+  return [];
 }
 
 export function qualifiedGroupsKey(bestThirds) {
@@ -37,6 +34,5 @@ export function qualifiedGroupsKey(bestThirds) {
 }
 
 export function resolveThirdAssignments(bestThirds, thirdMap) {
-  const key = qualifiedGroupsKey(bestThirds);
-  return { key, assignments: thirdMap[key] || {} };
+  return { key: "", assignments: {} };
 }

@@ -35,7 +35,7 @@ export function deserialize(payload) {
       activeGroup: typeof decoded.activeGroup === "string" ? decoded.activeGroup : "A",
       activeRound: typeof decoded.activeRound === "string" ? decoded.activeRound : "R1",
       groupView: decoded.groupView === "round" ? "round" : "group",
-      knockoutPhase: typeof decoded.knockoutPhase === "string" ? decoded.knockoutPhase : "R32"
+      knockoutPhase: typeof decoded.knockoutPhase === "string" ? decoded.knockoutPhase : "R16"
     };
   } catch {
     return null;

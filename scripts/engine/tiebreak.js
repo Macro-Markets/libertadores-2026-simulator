@@ -1,4 +1,4 @@
-import { FIFA_RANKING } from "../data/groups.js";
+import { TEAM_RANKING } from "../data/groups.js";
 
 export function compareHeadToHead(a, b) {
   return (b.head.pts - a.head.pts) || (b.head.gd - a.head.gd) || (b.head.gf - a.head.gf);
@@ -9,7 +9,7 @@ export function compareFallback(a, b) {
     || (b.gd - a.gd)
     || (b.gf - a.gf)
     || (a.fair - b.fair)
-    || ((FIFA_RANKING[a.team] || 999) - (FIFA_RANKING[b.team] || 999));
+    || ((TEAM_RANKING[a.team] || 999) - (TEAM_RANKING[b.team] || 999));
 }
 
 function resolveHead(row, tiedTeams) {

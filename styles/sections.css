@@ -287,9 +287,6 @@
 .group-table-row.is-qualified {
   background: var(--success-soft);
 }
-.group-table-row.is-third-live {
-  background: var(--warning-soft);
-}
 .rank-dot {
   width: 24px;
   height: 24px;
@@ -390,66 +387,6 @@
   text-overflow: ellipsis;
 }
 
-.thirds-list {
-  display: grid;
-  gap: 6px;
-  position: relative;
-}
-.thirds-row {
-  display: grid;
-  grid-template-columns: 40px minmax(0, 1fr) auto;
-  gap: 10px;
-  align-items: center;
-  padding: 8px 10px;
-  background: var(--surface-soft);
-  border: 1px solid var(--accent);
-  border-radius: var(--r-sm);
-  font-size: 0.85rem;
-  transition: transform 280ms var(--ease), background-color 280ms var(--ease);
-}
-.thirds-row .kicker {
-  white-space: nowrap;
-}
-.thirds-row .team-cell {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-}
-.thirds-row .team-cell .team-name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-weight: 600;
-}
-.thirds-row .team-cell .small {
-  white-space: nowrap;
-  color: var(--text-hint);
-  font-size: 0.7rem;
-}
-.thirds-row.is-qualified {
-  background: var(--success-soft);
-  border-color: rgba(34, 197, 94, 0.4);
-}
-.thirds-row.is-dropped {
-  opacity: 0.55;
-}
-.thirds-cut {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.7rem;
-  color: var(--text-hint);
-  margin: 4px 0;
-}
-.thirds-cut::before,
-.thirds-cut::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--divider);
-}
-
 /* ─── BRACKET ─── */
 .bracket-stage {
   border: 1px solid var(--accent);
@@ -474,7 +411,7 @@
   position: relative;
   display: flex;
   gap: 32px;
-  min-width: 1710px;
+  min-width: 1270px;
   align-items: stretch;
   padding: 24px 8px;
 }
@@ -510,10 +447,9 @@
   justify-content: center;
 }
 
-.bracket-col.r32 .bracket-slot { min-height: 80px; }
-.bracket-col.r16 .bracket-slot { min-height: 160px; }
-.bracket-col.qf  .bracket-slot { min-height: 320px; }
-.bracket-col.sf  .bracket-slot { min-height: 640px; }
+.bracket-col.r16 .bracket-slot { min-height: 80px; }
+.bracket-col.qf  .bracket-slot { min-height: 160px; }
+.bracket-col.sf  .bracket-slot { min-height: 320px; }
 .bracket-col.is-final .bracket-slot { min-height: auto; flex: 0; }
 
 .match-card-compact {

@@ -4,7 +4,7 @@ import { teamFlagUrl, teamLabel } from "../data/teams.js";
 import { escapeHtml } from "../utils/dom.js";
 import { t, formatDate, venueLabel } from "../i18n/index.js";
 
-const ROUND_KEYS = ["R1", "R2", "R3"];
+const ROUND_KEYS = ["R1", "R2", "R3", "R4", "R5", "R6"];
 
 export function renderGroupsSection(container, snapshot, actions, fixtures) {
   const { state, derived, changes } = snapshot;
@@ -175,7 +175,6 @@ function renderTable(rows, changedTeams) {
         const classes = [
           "group-table-row",
           index < 2 ? "is-qualified" : "",
-          index === 2 ? "is-third-live" : "",
           changedTeams.includes(row.team) ? "flash-qualify" : ""
         ].filter(Boolean).join(" ");
         return `

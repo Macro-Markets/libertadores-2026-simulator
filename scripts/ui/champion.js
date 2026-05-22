@@ -52,7 +52,7 @@ function buildPathRows(derived) {
   const champion = derived.champion;
   const rows = [];
 
-  for (const round of ["R32", "R16", "QF", "SF", "F"]) {
+  for (const round of ["R16", "QF", "SF", "F"]) {
     const list = derived.matches[round] || [];
     list.filter(m => path.has(m.id)).forEach(match => {
       const opponent = match.homeTeam === champion ? match.awayTeam : match.homeTeam;

@@ -1,4 +1,4 @@
-import { R32_TEMPLATE, NEXT_ROUNDS, ROUND_ORDER, isLeftSide, roundLabel } from "../data/bracket-template.js";
+import { R16_TEMPLATE, NEXT_ROUNDS, ROUND_ORDER, isLeftSide, roundLabel } from "../data/bracket-template.js";
 import { isReady } from "./standings.js";
 
 const TBD = "TBD";
@@ -12,11 +12,6 @@ function sanitizeScore(value) {
 
 function resolveSeed(seedKey, seeds, thirdAssignments) {
   if (!seedKey) return TBD;
-  if (seedKey.startsWith("TP:")) {
-    const slot = seedKey.split(":")[1];
-    const mappedSeed = thirdAssignments[slot];
-    return mappedSeed ? (seeds[mappedSeed] || TBD) : TBD;
-  }
   return seeds[seedKey] || TBD;
 }
 
@@ -38,15 +33,15 @@ export function isTiedKnockout(match) {
   return Number(match.home) === Number(match.away);
 }
 
-function buildRound32(seeds, thirdAssignments, knockoutState) {
-  return R32_TEMPLATE.map(template => {
+function buildRound16(seeds, thirdAssignments, knockoutState) {
+  return R16_TEMPLATE.map(template => {
     const editable = knockoutState[template.id] || { home: "", away: "" };
     const homeTeam = resolveSeed(template.home, seeds, thirdAssignments);
     const awayTeam = resolveSeed(template.away, seeds, thirdAssignments);
     const match = {
       id: template.id,
-      round: "R32",
-      label: `${roundLabel("R32")} · ${template.id.split("-")[1]}`,
+      round: "R16",
+      label: `${roundLabel("R16")} · ${template.id.split("-")[1]}`,
       side: template.side,
       homeTeam,
       awayTeam,
@@ -86,13 +81,11 @@ function buildLaterRound(code, rounds, knockoutState) {
 
 export function buildKnockoutMatches(seeds, thirdAssignments, knockoutState) {
   const rounds = {
-    R32: buildRound32(seeds, thirdAssignments, knockoutState),
-    R16: [],
+    R16: buildRound16(seeds, thirdAssignments, knockoutState),
     QF: [],
     SF: [],
     F: []
   };
-  rounds.R16 = buildLaterRound("R16", rounds, knockoutState);
   rounds.QF = buildLaterRound("QF", rounds, knockoutState);
   rounds.SF = buildLaterRound("SF", rounds, knockoutState);
   rounds.F = buildLaterRound("F", rounds, knockoutState);

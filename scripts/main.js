@@ -1,5 +1,4 @@
 import { loadFixtures } from "./data/fixtures.js";
-import { loadThirdMap } from "./data/third-place-map.js";
 import { createStore } from "./state/store.js";
 import { applyTheme, listenSystemTheme } from "./utils/theme.js";
 import { wireKeyboardFlow, restoreFocus, captureFocusId } from "./utils/keyboard.js";
@@ -31,8 +30,8 @@ async function bootstrap() {
   applyDocumentLang();
   applyStaticTranslations();
 
-  const [fixtures, thirdMap] = await Promise.all([loadFixtures(), loadThirdMap()]);
-  const store = createStore({ fixtures, thirdMap });
+  const fixtures = await loadFixtures();
+  const store = createStore({ fixtures });
 
   const heroEl = document.getElementById("heroSection");
   const groupsEl = document.getElementById("groupsSection");

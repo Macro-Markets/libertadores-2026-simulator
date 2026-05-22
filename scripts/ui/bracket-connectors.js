@@ -21,7 +21,7 @@ function buildPairs(matches) {
 }
 
 function findMatch(id, matches) {
-  for (const key of ["R32", "R16", "QF", "SF", "F"]) {
+  for (const key of ["R16", "QF", "SF", "F"]) {
     const match = matches[key]?.find(m => m.id === id);
     if (match) return match;
   }

@@ -51,70 +51,21 @@ function renderSeedsCard(derived) {
 }
 
 function renderThirdsCard(derived, changedTeams) {
-  const ranked = derived.rankedThirds || [];
-  const cutoff = 8;
-  const bestCount = Math.min(cutoff, ranked.length);
-
-  const rowsHtml = ranked.map((row, index) => {
-    const classes = [
-      "thirds-row",
-      index < cutoff ? "is-qualified" : "is-dropped",
-      changedTeams.includes(row.team) ? "flash-qualify" : ""
-    ].filter(Boolean).join(" ");
-    const cutBefore = index === cutoff ? `<div class="thirds-cut">${t("qualifiers.thirds.cut")}</div>` : "";
-    return `
-      ${cutBefore}
-      <div class="${classes}" data-third-team="${escapeHtml(row.team)}">
-        <span class="kicker">#${index + 1}</span>
-        <div class="team-cell">
-          <img class="flag-lg" src="${teamFlagUrl(row.team)}" alt="" loading="lazy">
-          <span class="team-name">${escapeHtml(teamLabel(row.team))}</span>
-          <span class="small">${t("groups.groupN", { g: row.group })}</span>
-        </div>
-        <span class="small mono">${t("qualifiers.thirds.stats", {
-          pts: row.pts,
-          gd: row.gd >= 0 ? "+" + row.gd : row.gd,
-          gf: row.gf
-        })}</span>
-      </div>`;
-  }).join("");
-
   return `
     <article class="qualifiers-card">
-      <p class="kicker">${t("qualifiers.thirds.kicker")}</p>
-      <h3>${t("qualifiers.thirds.title", { best: bestCount, cutoff })}</h3>
-      <div class="thirds-list" id="thirdsList">${rowsHtml}</div>
+      <p class="kicker">${t("qualifiers.format.kicker")}</p>
+      <h3>${t("qualifiers.format.title")}</h3>
+      <p class="muted small">${t("qualifiers.format.body")}</p>
     </article>
   `;
 }
 
 function renderMappingCard(derived) {
-  const assignments = derived.thirdAssignments || {};
-  const seeds = derived.seeds || {};
-  const entries = Object.entries(assignments);
-
-  const content = entries.length
-    ? entries.map(([slot, seed]) => `
-        <div class="seed-row">
-          <span class="kicker">${t("qualifiers.mapping.slot", { slot })}</span>
-          <div class="team-cell">
-            <img class="flag-lg" src="${teamFlagUrl(seeds[seed])}" alt="" loading="lazy">
-            <span class="team-name">${escapeHtml(teamLabel(seeds[seed]))}</span>
-          </div>
-          <span class="small">${escapeHtml(seed)}</span>
-        </div>`).join("")
-    : `<p class="muted small">${t("qualifiers.mapping.empty")}</p>`;
-
-  const groupsText = derived.qualifiedGroupsKey
-    ? derived.qualifiedGroupsKey.split("").join(" · ")
-    : t("qualifiers.mapping.pending");
-
   return `
     <article class="qualifiers-card">
-      <p class="kicker">${t("qualifiers.mapping.kicker")}</p>
-      <h3>${t("qualifiers.mapping.title")}</h3>
-      <p class="small">${t("qualifiers.mapping.groupsQualified", { groups: groupsText })}</p>
-      <div class="seed-list">${content}</div>
+      <p class="kicker">${t("qualifiers.knockout.kicker")}</p>
+      <h3>${t("qualifiers.knockout.title")}</h3>
+      <p class="muted small">${t("qualifiers.knockout.body")}</p>
     </article>
   `;
 }
